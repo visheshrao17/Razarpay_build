@@ -45,3 +45,9 @@ temp/
 .vscode/
 *.swp
 *.swo
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
