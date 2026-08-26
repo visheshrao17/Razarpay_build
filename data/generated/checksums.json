@@ -1,0 +1,7 @@
+{
+  "settlements.csv": "eb06cf0941aaf7ab0b212e16d253cc65cacbb6676fe92a95ced283d872d4a368",
+  "internal_ledger.csv": "294fd504a40bae93ea79bf156488004be3395d564a957ee518fa1a6ed50afb6b",
+  "bank_statement.csv": "d1753d905936bad25be82161410b866025dabb4d94e5cfba199b609cc0140377",
+  "payments.csv": "6e67d0f7bf664f4b142e9554dbe9e30f1b55a2078de0b122f87c2c507c7d6ab8",
+  "ground_truth.json": "71f9eb73aff5b0172656da80cf7af27b85b9a1f9d5f0ae38864e666deb2c8fcf"
+}

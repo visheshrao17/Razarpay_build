@@ -1,0 +1,57 @@
+{
+  "dataset_version": "seed-20260824-v1.0",
+  "records_processed": 260,
+  "invalid_rows": 2,
+  "elapsed_seconds": 0.0012,
+  "throughput_records_per_second": 221338.6,
+  "overall_match_rate": 0.903,
+  "forced_match_count": 0,
+  "exception_counts": {
+    "DUPLICATE": 6,
+    "TIMING_DIFFERENCE": 10,
+    "MISSING_ORDER": 5,
+    "IDENTIFIER_CONFLICT": 5,
+    "FEE_VARIANCE": 5,
+    "TAX_VARIANCE": 5,
+    "PARTIAL_REFUND": 8,
+    "AMBIGUOUS_MATCH": 1,
+    "MISSING_BANK_ENTRY": 1,
+    "UNEXPECTED_ADJUSTMENT": 1
+  },
+  "evaluation": {
+    "dataset_version": "seed-20260824-v1.0",
+    "auto_matches": 121,
+    "ground_truth_pairs": 121,
+    "ground_truth_auto_pairs": 121,
+    "correct_auto_matches": 121,
+    "incorrect_auto_matches": [],
+    "auto_match_precision": 1.0,
+    "auto_match_recall": 1.0
+  },
+  "baseline_comparison": {
+    "exact_only": {
+      "auto_match_precision": 1.0,
+      "auto_match_recall": 0.9835,
+      "auto_matches": 119,
+      "overall_match_rate": 0.8955,
+      "exception_count": 52,
+      "forced_match_count": 0
+    },
+    "exact_plus_tolerance": {
+      "auto_match_precision": 1.0,
+      "auto_match_recall": 0.9835,
+      "auto_matches": 119,
+      "overall_match_rate": 0.8955,
+      "exception_count": 52,
+      "forced_match_count": 0
+    },
+    "final_candidate_scoring": {
+      "auto_match_precision": 1.0,
+      "auto_match_recall": 1.0,
+      "auto_matches": 121,
+      "overall_match_rate": 0.903,
+      "exception_count": 47,
+      "forced_match_count": 0
+    }
+  }
+}
