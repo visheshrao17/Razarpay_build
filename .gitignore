@@ -1,0 +1,47 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js
+.next/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# Build and Temp
+dist/
+build/
+coverage/
+.cache/
+tmp/
+temp/
+*.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
