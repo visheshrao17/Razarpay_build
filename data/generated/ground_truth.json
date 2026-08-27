@@ -1,0 +1,1115 @@
+{
+  "dataset_version": "seed-20260824-v1.0",
+  "seed": 20260824,
+  "generator_version": "v1.0",
+  "generated_independently_of_matcher": true,
+  "order_settlement_matches": [
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0001",
+      "order": "order_0001",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0002",
+      "order": "order_0002",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0003",
+      "order": "order_0003",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0004",
+      "order": "order_0004",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0005",
+      "order": "order_0005",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0006",
+      "order": "order_0006",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0007",
+      "order": "order_0007",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0008",
+      "order": "order_0008",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0009",
+      "order": "order_0009",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0010",
+      "order": "order_0010",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0011",
+      "order": "order_0011",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0012",
+      "order": "order_0012",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0013",
+      "order": "order_0013",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0014",
+      "order": "order_0014",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0015",
+      "order": "order_0015",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0016",
+      "order": "order_0016",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0017",
+      "order": "order_0017",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0018",
+      "order": "order_0018",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0019",
+      "order": "order_0019",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0020",
+      "order": "order_0020",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0021",
+      "order": "order_0021",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0022",
+      "order": "order_0022",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0023",
+      "order": "order_0023",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0024",
+      "order": "order_0024",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0025",
+      "order": "order_0025",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0026",
+      "order": "order_0026",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0027",
+      "order": "order_0027",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0028",
+      "order": "order_0028",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0029",
+      "order": "order_0029",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0030",
+      "order": "order_0030",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0031",
+      "order": "order_0031",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0032",
+      "order": "order_0032",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0033",
+      "order": "order_0033",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0034",
+      "order": "order_0034",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0035",
+      "order": "order_0035",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0036",
+      "order": "order_0036",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0037",
+      "order": "order_0037",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0038",
+      "order": "order_0038",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0039",
+      "order": "order_0039",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0040",
+      "order": "order_0040",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0041",
+      "order": "order_0041",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0042",
+      "order": "order_0042",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0043",
+      "order": "order_0043",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0044",
+      "order": "order_0044",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0045",
+      "order": "order_0045",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0046",
+      "order": "order_0046",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0047",
+      "order": "order_0047",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0048",
+      "order": "order_0048",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0049",
+      "order": "order_0049",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0050",
+      "order": "order_0050",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0051",
+      "order": "order_0051",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0052",
+      "order": "order_0052",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0053",
+      "order": "order_0053",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0054",
+      "order": "order_0054",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0055",
+      "order": "order_0055",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0056",
+      "order": "order_0056",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0057",
+      "order": "order_0057",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0058",
+      "order": "order_0058",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0059",
+      "order": "order_0059",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0060",
+      "order": "order_0060",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0061",
+      "order": "order_0061",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0062",
+      "order": "order_0062",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0063",
+      "order": "order_0063",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0064",
+      "order": "order_0064",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0065",
+      "order": "order_0065",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0066",
+      "order": "order_0066",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0067",
+      "order": "order_0067",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0068",
+      "order": "order_0068",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0069",
+      "order": "order_0069",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0070",
+      "order": "order_0070",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0071",
+      "order": "order_0071",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0072",
+      "order": "order_0072",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0073",
+      "order": "order_0073",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0074",
+      "order": "order_0074",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0075",
+      "order": "order_0075",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0076",
+      "order": "order_0076",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0077",
+      "order": "order_0077",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0078",
+      "order": "order_0078",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0079",
+      "order": "order_0079",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0080",
+      "order": "order_0080",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0096",
+      "order": "order_0096",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0097",
+      "order": "order_0097",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0098",
+      "order": "order_0098",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0099",
+      "order": "order_0099",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0100",
+      "order": "order_0100",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0101",
+      "order": "order_0101",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0102",
+      "order": "order_0102",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0103",
+      "order": "order_0103",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0104",
+      "order": "order_0104",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0105",
+      "order": "order_0105",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0106",
+      "order": "order_0106",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0107",
+      "order": "order_0107",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0108",
+      "order": "order_0108",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0109",
+      "order": "order_0109",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0110",
+      "order": "order_0110",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0111",
+      "order": "order_0111",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0112",
+      "order": "order_0112",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0113",
+      "order": "order_0113",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0114",
+      "order": "order_0114",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0115",
+      "order": "order_0115",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0116",
+      "order": "order_0116",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0117",
+      "order": "order_0117",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0118",
+      "order": "order_0118",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0119",
+      "order": "order_0119",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "order_settlement",
+      "settlement": "settlement_0120",
+      "order": "order_0120",
+      "expected_decision": "auto"
+    }
+  ],
+  "refund_matches": [
+    {
+      "plane": "refund",
+      "settlement": "settlement_0121",
+      "order": "order_0073",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0122",
+      "order": "order_0074",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0123",
+      "order": "order_0075",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0124",
+      "order": "order_0076",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0125",
+      "order": "order_0077",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0126",
+      "order": "order_0078",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0127",
+      "order": "order_0079",
+      "expected_decision": "auto"
+    },
+    {
+      "plane": "refund",
+      "settlement": "settlement_0128",
+      "order": "order_0080",
+      "expected_decision": "auto"
+    }
+  ],
+  "settlement_bank_matches": [
+    {
+      "batch": "setl_0001",
+      "bank": [
+        "bank_0001"
+      ],
+      "expected_decision": "auto",
+      "match_type": "exact"
+    },
+    {
+      "batch": "setl_0002",
+      "bank": [
+        "bank_0002"
+      ],
+      "expected_decision": "auto",
+      "match_type": "exact"
+    },
+    {
+      "batch": "setl_0003",
+      "bank": [
+        "bank_0003"
+      ],
+      "expected_decision": "auto",
+      "match_type": "exact"
+    },
+    {
+      "batch": "setl_0004",
+      "bank": [
+        "bank_0004"
+      ],
+      "expected_decision": "auto",
+      "match_type": "exact"
+    },
+    {
+      "batch": "setl_0005",
+      "bank": [
+        "bank_0005"
+      ],
+      "expected_decision": "auto",
+      "match_type": "exact"
+    },
+    {
+      "batch": "setl_0007",
+      "bank": [
+        "bank_0009",
+        "bank_0010"
+      ],
+      "expected_decision": "auto",
+      "match_type": "one_to_many"
+    },
+    {
+      "batch": "setl_0009",
+      "bank": [
+        "bank_0011"
+      ],
+      "expected_decision": "auto",
+      "match_type": "many_to_one"
+    },
+    {
+      "batch": "setl_0010",
+      "bank": [
+        "bank_0011"
+      ],
+      "expected_decision": "auto",
+      "match_type": "many_to_one"
+    }
+  ],
+  "expected_exceptions": [
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0053",
+        "order_0053"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0054",
+        "order_0054"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0055",
+        "order_0055"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0056",
+        "order_0056"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0057",
+        "order_0057"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0058",
+        "order_0058"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0059",
+        "order_0059"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0060",
+        "order_0060"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0061",
+        "order_0061"
+      ]
+    },
+    {
+      "code": "TIMING_DIFFERENCE",
+      "record_ids": [
+        "settlement_0062",
+        "order_0062"
+      ]
+    },
+    {
+      "code": "FEE_VARIANCE",
+      "record_ids": [
+        "settlement_0063",
+        "order_0063"
+      ]
+    },
+    {
+      "code": "FEE_VARIANCE",
+      "record_ids": [
+        "settlement_0064",
+        "order_0064"
+      ]
+    },
+    {
+      "code": "FEE_VARIANCE",
+      "record_ids": [
+        "settlement_0065",
+        "order_0065"
+      ]
+    },
+    {
+      "code": "FEE_VARIANCE",
+      "record_ids": [
+        "settlement_0066",
+        "order_0066"
+      ]
+    },
+    {
+      "code": "FEE_VARIANCE",
+      "record_ids": [
+        "settlement_0067",
+        "order_0067"
+      ]
+    },
+    {
+      "code": "TAX_VARIANCE",
+      "record_ids": [
+        "settlement_0068",
+        "order_0068"
+      ]
+    },
+    {
+      "code": "TAX_VARIANCE",
+      "record_ids": [
+        "settlement_0069",
+        "order_0069"
+      ]
+    },
+    {
+      "code": "TAX_VARIANCE",
+      "record_ids": [
+        "settlement_0070",
+        "order_0070"
+      ]
+    },
+    {
+      "code": "TAX_VARIANCE",
+      "record_ids": [
+        "settlement_0071",
+        "order_0071"
+      ]
+    },
+    {
+      "code": "TAX_VARIANCE",
+      "record_ids": [
+        "settlement_0072",
+        "order_0072"
+      ]
+    },
+    {
+      "code": "MISSING_ORDER",
+      "record_ids": [
+        "settlement_0081"
+      ]
+    },
+    {
+      "code": "MISSING_ORDER",
+      "record_ids": [
+        "settlement_0082"
+      ]
+    },
+    {
+      "code": "MISSING_ORDER",
+      "record_ids": [
+        "settlement_0083"
+      ]
+    },
+    {
+      "code": "MISSING_ORDER",
+      "record_ids": [
+        "settlement_0084"
+      ]
+    },
+    {
+      "code": "MISSING_ORDER",
+      "record_ids": [
+        "settlement_0085"
+      ]
+    },
+    {
+      "code": "IDENTIFIER_CONFLICT",
+      "record_ids": [
+        "settlement_0086",
+        "order_0086"
+      ]
+    },
+    {
+      "code": "IDENTIFIER_CONFLICT",
+      "record_ids": [
+        "settlement_0087",
+        "order_0087"
+      ]
+    },
+    {
+      "code": "IDENTIFIER_CONFLICT",
+      "record_ids": [
+        "settlement_0088",
+        "order_0088"
+      ]
+    },
+    {
+      "code": "IDENTIFIER_CONFLICT",
+      "record_ids": [
+        "settlement_0089",
+        "order_0089"
+      ]
+    },
+    {
+      "code": "IDENTIFIER_CONFLICT",
+      "record_ids": [
+        "settlement_0090",
+        "order_0090"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "settlement_0001",
+        "settlement_0091"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "settlement_0002",
+        "settlement_0092"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "settlement_0003",
+        "settlement_0093"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "settlement_0004",
+        "settlement_0094"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "settlement_0005",
+        "settlement_0095"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0121",
+        "order_0073"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0122",
+        "order_0074"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0123",
+        "order_0075"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0124",
+        "order_0076"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0125",
+        "order_0077"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0126",
+        "order_0078"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0127",
+        "order_0079"
+      ]
+    },
+    {
+      "code": "PARTIAL_REFUND",
+      "record_ids": [
+        "settlement_0128",
+        "order_0080"
+      ]
+    },
+    {
+      "code": "INVALID_SOURCE",
+      "record_ids": [
+        "settlement_0129"
+      ]
+    },
+    {
+      "code": "DUPLICATE",
+      "record_ids": [
+        "bank_0002",
+        "bank_0006"
+      ]
+    },
+    {
+      "code": "AMBIGUOUS_MATCH",
+      "record_ids": [
+        "bank_0007",
+        "bank_0008"
+      ],
+      "note": "deliberate graceful failure: two plausible credits for setl_0006"
+    },
+    {
+      "code": "MISSING_BANK_ENTRY",
+      "record_ids": [
+        "settlement_0085",
+        "settlement_0086",
+        "settlement_0087",
+        "settlement_0088",
+        "settlement_0089",
+        "settlement_0090",
+        "settlement_0096"
+      ]
+    },
+    {
+      "code": "UNEXPECTED_ADJUSTMENT",
+      "record_ids": [
+        "bank_0012"
+      ]
+    },
+    {
+      "code": "INVALID_SOURCE",
+      "record_ids": [
+        "bank_0021"
+      ]
+    }
+  ],
+  "case_mix": {
+    "clean_exact": 77,
+    "timing_offsets": 10,
+    "fee_variance": 5,
+    "tax_variance": 5,
+    "partial_refunds": 8,
+    "missing_orders": 5,
+    "identifier_conflicts_deliberately_unresolved": 5,
+    "duplicate_settlements": 5,
+    "duplicate_bank_rows": 1,
+    "missing_bank_credit_batches": 1,
+    "ambiguous_bank_narrations": 2,
+    "one_to_many": 1,
+    "many_to_one": 1,
+    "invalid_rows": 2,
+    "unexplained_credits": 1
+  }
+}

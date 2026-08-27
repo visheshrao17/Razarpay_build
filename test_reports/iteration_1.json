@@ -1,0 +1,39 @@
+{
+  "summary": "End-to-end test of SettleSense: 21 backend pytest cases (auth, run lifecycle, matches, exceptions, audit hash-chain, reports md/csv/json, evaluation baselines, razorpay adapter not-configured, AI explain with source-id validation). Frontend UI flow tested via Playwright covering login (correct + wrong-pw error), run summary metrics, baseline table, matches list + detail, exceptions modal + note-required validation, audit events, and report page exports. AI explanation validated once (returns evidence-grounded summary citing settlement_0090/order_0090). Backend result: 20/21 pass. Frontend result: all specified user-visible flows work; one missing testid found.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/exceptions/{id}/resolve", "issue": "Server accepts empty/whitespace-only 'note' and transitions OPEN->RESOLVED with HTTP 200. Frontend enforces the requirement (Exceptions.js line 30 shows toast) but backend has no equivalent guard, so the audit rule ('reviewer note is required for the audit log') is bypassable by any API caller."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "RunSummary metrics", "issue": "Missing data-testid 'metric-recall' listed in the review request. Recall value (1.00) is rendered inside the metric-precision card as subtext ('recall 1.00 on independent ground truth') instead of its own testid'd card. metric-records-processed, metric-match-rate, metric-precision, metric-forced-matches are all present.", "selector": "[data-testid=\"metric-recall\"]", "priority": "LOW"},
+      {"component": "Exception modal", "issue": "modal-backdrop element uses 'absolute inset-0' as a sibling to modal content, and its pointer-events default cause Playwright to see the backdrop intercepting clicks on other page elements while the modal is open. Real users can still click the visible close (X) inside the modal, so functionally usable but automation-hostile. Consider pointer-events:none on the backdrop or moving it behind content with lower z-index.", "selector": "[data-testid=\"modal-backdrop\"]", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Add server-side validation on POST /api/exceptions/{id}/resolve to require a non-empty note (mirror frontend rule), otherwise API callers can bypass the reviewer-note audit requirement.",
+    "Add a dedicated data-testid=\"metric-recall\" card (or attribute on the existing recall span) on RunSummary.js so it matches the promised UI contract.",
+    "IMPORTANT (env): PostgreSQL was found unconfigured after container restart (role 'settlesense' + database missing, causing backend 502). Testing agent recreated the role/database. Add an idempotent bootstrap script to /app/scripts (or a supervisor pre-start hook) that runs 'CREATE USER ... / CREATE DATABASE ...' if absent so the backend recovers cleanly across container restarts. Also 'supervisord.sock' was missing on boot; ensure supervisord auto-starts."
+  ],
+  "critical_code_review_comments": [
+    "routers/exceptions.py resolve endpoint: 'note: str = \"\"' with no validation permits empty notes. Enforce with `if not body.note.strip(): raise HTTPException(400, 'Reviewer note required')' to keep the audit trail meaningful."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py"
+  ],
+  "success_rate": {"backend": "95% (20/21)", "frontend": "~95% (all user flows verified; 1 missing testid)"},
+  "seed_data_creation": "Created two runs via UI/pytest: run_0001 (pytest-completed) and run_0002 (TEST_lifecycle_run). Fresh PostgreSQL DB provisioned. Ran fixture ingestion twice; 260 records processed each with 121 auto-matches, 49 exceptions, 0 forced matches. AMBIGUOUS_MATCH exception for setl_0006/bank_0007+bank_0008 confirmed. Resolved a few exceptions during testing (both runs now in REVIEWING status). Consumed 1 AI explain call (~gpt-5.4).",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "operator@settlesense.dev/operator123, reviewer@settlesense.dev/reviewer123 - both working",
+  "context_for_next_testing_agent": "Backend tests live at /app/backend/tests/backend_test.py, follow the pytest pattern (session-scoped op_session + rev_session fixtures, reuses a COMPLETED run when available). The pytest test test_resolve_without_note_returns_error remains failing intentionally to flag the backend-side missing note validation. If the main agent adds that guard, this test should pass unchanged. Runs in DB may have all exceptions resolved after this iteration; create a fresh run (via POST /api/runs then /sources/fixture then /execute) to get OPEN exceptions for interactive testing.",
+  "rca_of_the_issue": "1) Note-validation bug: routers/exceptions.py ResolveRequest defaults note to '' and resolve_exception does not check it before writing the resolution/audit event; frontend Exceptions.js line 30 has the correct guard, so the defect only manifests via direct API calls. 2) Missing metric-recall testid: RunSummary.js renders the recall value as descriptive subtext inside the precision card rather than its own metric block. 3) PostgreSQL was reset on container restart; the app has no bootstrap to recreate role/db, so backend failed to start with InvalidPasswordError until the role was manually created."
+}

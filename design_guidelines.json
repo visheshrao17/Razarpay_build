@@ -1,0 +1,114 @@
+{
+  "project_name": "SettleSense",
+  "theme": "light",
+  "theme_strategy": "Swiss & High-Contrast (Authority, Clarity, Truth). Designed for finance operators who need to scan dense data for hours. Focus on high legibility, strict structural grayscale, and functional use of color (only to indicate status/action).",
+  "typography": {
+    "font_strategy": "The 'Corporate/Enterprise' Pattern. Sterile, highly legible, precise.",
+    "fonts": {
+      "headings": "IBM Plex Sans",
+      "body": "IBM Plex Sans",
+      "monospace": "IBM Plex Mono (CRITICAL: Must use monospace for all amounts, hashes, and IDs in tables for vertical alignment)"
+    },
+    "hierarchy": {
+      "h1": "text-3xl sm:text-4xl font-semibold tracking-tight leading-none text-slate-950",
+      "h2": "text-xl sm:text-2xl font-medium tracking-tight text-slate-900",
+      "h3": "text-lg font-medium text-slate-800",
+      "body": "text-sm text-slate-600 leading-relaxed",
+      "metrics": "text-2xl font-semibold text-slate-950 tracking-tight",
+      "labels": "text-xs font-semibold tracking-[0.05em] uppercase text-slate-500",
+      "data_table": "text-sm text-slate-700"
+    }
+  },
+  "colors": {
+    "background": {
+      "main": "bg-white",
+      "subtle": "bg-slate-50",
+      "surface": "bg-white",
+      "header": "bg-white/90 backdrop-blur-xl border-b border-slate-200"
+    },
+    "text": {
+      "primary": "text-slate-950",
+      "secondary": "text-slate-600",
+      "tertiary": "text-slate-400"
+    },
+    "accents": {
+      "primary_action": "bg-blue-700 text-white hover:bg-blue-800",
+      "secondary_action": "bg-white border border-slate-300 text-slate-700 hover:bg-slate-50",
+      "exact_match": "bg-green-100 text-green-800 border-green-200",
+      "ai_review": "bg-amber-100 text-amber-900 border-amber-200",
+      "exception_unresolved": "bg-red-100 text-red-900 border-red-200"
+    },
+    "borders": {
+      "default": "border-slate-200",
+      "focus": "focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  },
+  "surfaces": {
+    "cards": "bg-white border border-slate-200 rounded-lg shadow-sm (avoid heavy shadows, keep it flat and functional)",
+    "tables": "border-collapse w-full text-left text-sm whitespace-nowrap",
+    "table_header": "bg-slate-50 border-b border-slate-200 text-slate-500 font-medium py-3 px-4",
+    "table_row": "border-b border-slate-100 hover:bg-slate-50 transition-colors py-3 px-4",
+    "ai_explanation_panel": "bg-blue-50 border border-blue-100 rounded-lg p-4"
+  },
+  "layouts": {
+    "spacing_scale": "Dense. Use gap-4 and gap-6 for dashboard grids to maintain data correlation.",
+    "page_container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8",
+    "grid_dashboard": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4",
+    "grid_spans": {
+      "summary_metric": "col-span-1",
+      "main_chart": "col-span-1 md:col-span-2 lg:col-span-3",
+      "side_panel": "col-span-1"
+    }
+  },
+  "components": {
+    "navigation": "Top navigation bar (fixed, backdrop-blur) with Logo, Primary Links (Dashboard, Exceptions, Reports, Setup), and User Avatar.",
+    "status_badges": "pill-shaped, text-xs font-medium px-2.5 py-0.5 rounded-full border",
+    "data_table": "Shadcn Table component. Must be scrollable horizontally if columns overflow. Stick header to top.",
+    "confidence_band": "Visual progress bar or ring. >=0.90 Green, 0.60-0.89 Yellow, <0.60 Red.",
+    "match_detail_view": "Side-by-side comparison cards for Razorpay, Bank, Internal. Highlight matching fields with a subtle green background, conflicting fields with light red. Include an 'AI Explanation' block spanning full width below.",
+    "audit_timeline": "Vertical timeline component (left border line with absolute positioned dots). Clean typography to show actor (matcher/LLM/reviewer)."
+  },
+  "microcopy_guidelines": {
+    "metrics": "Metric name + current value + comparison + freshness. E.g., 'Unresolved Amount / ₹42,500 / +12% vs last run / As of 09:41 UTC'",
+    "actions": "Action-oriented. E.g., 'Review Exception', 'Approve Match', 'Export Close Report'",
+    "empty_states": "Explain why + Next Action. E.g., 'No exceptions in queue. All records for this run have been matched.'"
+  },
+  "icons_and_media": {
+    "icon_library": "@phosphor-icons/react (Duotone or Regular weight for data density)",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/15863044/pexels-photo-15863044.jpeg",
+        "description": "Minimalist logo placeholder for login screen or brand header",
+        "category": "logo"
+      },
+      {
+        "url": "https://images.pexels.com/photos/20157010/pexels-photo-20157010.jpeg",
+        "description": "Professional avatar for the logged-in finance operator",
+        "category": "avatar"
+      }
+    ]
+  },
+  "motion": {
+    "interactions": "Hover states on rows: subtle bg change. Buttons: -translate-y-[1px] and shadow-md. Transitions: transform 0.2s ease, background-color 0.2s ease.",
+    "data_loading": "Use skeleton loaders for tables (Shadcn Skeleton) rather than spinners."
+  },
+  "accessibility": {
+    "contrast": "APCA/WCAG AA compliant. Text on AI backgrounds must meet 4.5:1.",
+    "focus": "All interactive elements must have focus:ring-2 focus:ring-blue-500 focus:ring-offset-1.",
+    "testing": "All interactive elements MUST include data-testid attribute (e.g., data-testid='run-setup-button', data-testid='approve-match-btn')."
+  },
+  "libraries": {
+    "ui": "shadcn/ui",
+    "icons": "yarn add @phosphor-icons/react",
+    "charts": "recharts (for run summary waterfall / throughput charts)"
+  },
+  "universal_guidelines_for_main_agent": [
+    "Do not center-align the app container. Tables, forms, and lists must be left-aligned.",
+    "No generic gradients. Use solid colors or very subtle 1px borders to define sections.",
+    "Use 'sonner' for toast notifications (e.g., 'Match Approved', 'Report Exported').",
+    "Prioritize Shadcn UI components for dropdowns, selects, and dialogs. Do NOT build native HTML selects.",
+    "Ensure monetary values are right-aligned in tables and use tabular-nums (monospaced numbers).",
+    "Never use purely transparent backgrounds on floating elements (dropdowns, dialogs). Ensure they have solid white or glassmorphism backgrounds to hide content underneath."
+  ],
+  "instructions_to_main_agent": "Build a multi-page Dashboard application. Views include: Login, Run Setup, Summary Dashboard, Exception Queue, and Report View. Focus heavily on table readability, exact matching of fields, and the AI explanation panels. Use the provided color palette to indicate match confidence. The layout should be dense but structured, suitable for a finance controller. Include data-testid attributes on all interactive elements."
+}
