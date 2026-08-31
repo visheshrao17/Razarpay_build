@@ -12,8 +12,9 @@ ALLOWED_MODELS = {
     "gpt-5.4": ("openai", "gpt-5.4"),
     "claude-sonnet-4-6": ("anthropic", "claude-sonnet-4-6"),
     "gemini-3.1-pro-preview": ("gemini", "gemini-3.1-pro-preview"),
+    "openrouter": ("openrouter", "openai/gpt-4o-mini"),
 }
-DEFAULT_MODEL = "gpt-5.4"
+DEFAULT_MODEL = "openrouter"
 
 SYSTEM_PROMPT = """You are a cautious financial-operations assistant inside SettleSense, a settlement reconciliation system.
 You are given ONLY structured evidence from a reconciliation run: an exception produced by deterministic code, and the exact source records involved.
@@ -117,12 +118,29 @@ async def generate_explanation(exception, records, model_key=None):
         "taxonomy_codes": list(EXCEPTION_TAXONOMY.keys()),
     }
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        chat = LlmChat(api_key=api_key, session_id=f"explain-{exception.get('exception_id', 'x')}",
-                       system_message=SYSTEM_PROMPT).with_model(provider, model)
-        message = UserMessage(text=json.dumps(payload, default=str))
-        response = await asyncio.wait_for(chat.send_message(message), timeout=AI_TIMEOUT_SECONDS)
-        text = response if isinstance(response, str) else getattr(response, "content", str(response))
+        import httpx
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": json.dumps(payload, default=str)}
+        ]
+        
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                json={
+                    "model": model.split("/", 1)[-1] if "/" in model else model, 
+                    "messages": messages,
+                },
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "HTTP-Referer": "http://localhost:8000",
+                    "X-Title": "SettleSense",
+                },
+                timeout=AI_TIMEOUT_SECONDS
+            )
+            resp.raise_for_status()
+            text = resp.json()["choices"][0]["message"]["content"]
+            
         parsed = extract_json(text)
     except asyncio.TimeoutError:
         return deterministic_fallback(exception, "AI timeout"), model

@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { runs, formatApiError } from "../api/client";
 import { Badge, statusTone, Money, Mono, Section, Skeleton, EmptyState } from "../components/ui";
-import { Plus, Database, Play, ArrowRight } from "@phosphor-icons/react";
+import { Plus, Database, Play, ArrowRight, UploadSimple } from "@phosphor-icons/react";
 
-const AI_MODELS = ["gpt-5.4", "claude-sonnet-4-6", "gemini-3.1-pro-preview"];
+const AI_MODELS = ["openrouter", "gpt-5.4", "claude-sonnet-4-6", "gemini-3.1-pro-preview"];
 
 export default function Runs() {
   const [list, setList] = useState(null);
@@ -14,8 +14,11 @@ export default function Runs() {
   const [tolerance, setTolerance] = useState(100);
   const [window_, setWindow] = useState(2);
   const [autoThreshold, setAutoThreshold] = useState(0.9);
-  const [aiModel, setAiModel] = useState("gpt-5.4");
+  const [aiModel, setAiModel] = useState("openrouter");
   const [busy, setBusy] = useState("");
+  const [uploadRunId, setUploadRunId] = useState(null);
+  const [uploadSourceType, setUploadSourceType] = useState("settlement");
+  const [uploadFile, setUploadFile] = useState(null);
   const navigate = useNavigate();
 
   const refresh = () => runs.list().then((r) => setList(r.data)).catch((e) => toast.error(formatApiError(e)));
@@ -43,6 +46,19 @@ export default function Runs() {
     try {
       await runs.loadFixtures(runId);
       toast.success("Seeded fixture sources registered (settlements, bank, ledger, payments)");
+      setUploadRunId(null);
+      refresh();
+    } catch (err) { toast.error(formatApiError(err)); } finally { setBusy(""); }
+  };
+
+  const handleUpload = async (e, runId) => {
+    e.preventDefault();
+    if (!uploadFile) return;
+    setBusy(`upload-${runId}`);
+    try {
+      await runs.uploadSource(runId, uploadSourceType, uploadFile);
+      toast.success(`${uploadSourceType} uploaded successfully`);
+      setUploadFile(null);
       refresh();
     } catch (err) { toast.error(formatApiError(err)); } finally { setBusy(""); }
   };
@@ -132,7 +148,8 @@ export default function Runs() {
                   const ready = r.status === "READY";
                   const done = ["COMPLETED", "REVIEWING", "CLOSED"].includes(r.status);
                   return (
-                    <tr key={r.run_id} data-testid={`run-row-${r.run_id}`}>
+                    <React.Fragment key={r.run_id}>
+                    <tr data-testid={`run-row-${r.run_id}`}>
                       <td><Mono>{r.run_id}</Mono></td>
                       <td className="max-w-[220px] truncate">{r.name}</td>
                       <td><Badge tone={statusTone[r.status]} testId={`run-status-${r.run_id}`}>{r.status}</Badge></td>
@@ -151,6 +168,12 @@ export default function Runs() {
                       <td className="text-right"><Money minor={m?.unresolved_amount_minor} /></td>
                       <td>
                         <div className="flex gap-2 justify-end">
+                          {!done && (
+                            <button className="btn-secondary !py-1 !px-2.5 text-xs"
+                              onClick={() => setUploadRunId(uploadRunId === r.run_id ? null : r.run_id)}>
+                              <UploadSimple size={14} /> Upload CSV
+                            </button>
+                          )}
                           {!done && r.sources.length === 0 && (
                             <button className="btn-secondary !py-1 !px-2.5 text-xs" disabled={busy === `fixture-${r.run_id}`}
                               onClick={() => loadFixtures(r.run_id)} data-testid={`load-fixture-btn-${r.run_id}`}>
@@ -172,6 +195,32 @@ export default function Runs() {
                         </div>
                       </td>
                     </tr>
+                    {uploadRunId === r.run_id && (
+                      <tr>
+                        <td colSpan="8" className="bg-slate-50 border-b border-slate-200">
+                          <form className="p-3 flex items-end gap-4" onSubmit={(e) => handleUpload(e, r.run_id)}>
+                            <div>
+                              <label className="text-xs font-medium text-slate-700 block mb-1">Source Type</label>
+                              <select className="input !py-1.5 text-sm" value={uploadSourceType} onChange={e => setUploadSourceType(e.target.value)}>
+                                <option value="settlement">settlement</option>
+                                <option value="bank_statement">bank_statement</option>
+                                <option value="internal_ledger">internal_ledger</option>
+                                <option value="payment">payment</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="text-xs font-medium text-slate-700 block mb-1">CSV File</label>
+                              <input type="file" className="block text-sm text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" accept=".csv" onChange={(e) => setUploadFile(e.target.files[0])} required />
+                            </div>
+                            <button className="btn-primary !py-1.5" disabled={busy === `upload-${r.run_id}` || !uploadFile}>
+                              {busy === `upload-${r.run_id}` ? "Uploading…" : "Upload"}
+                            </button>
+                            <button type="button" className="btn-secondary !py-1.5" onClick={() => setUploadRunId(null)}>Cancel</button>
+                          </form>
+                        </td>
+                      </tr>
+                    )}
+                    </React.Fragment>
                   );
                 })}
               </tbody>

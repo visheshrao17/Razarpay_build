@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { runs, formatApiError } from "../api/client";
 import { MetricCard, Money, Section, Skeleton, Badge, statusTone, Mono } from "../components/ui";
+import { Sparkle, Lightning } from "@phosphor-icons/react";
 
 const SEV_COLORS = { critical: "#b91c1c", high: "#dc2626", medium: "#d97706", low: "#64748b" };
 const CODE_COLOR = "#1d4ed8";
@@ -13,10 +14,29 @@ export default function RunSummary() {
   const [summary, setSummary] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
 
-  useEffect(() => {
+  const [aiBusy, setAiBusy] = useState(false);
+
+  const loadSummary = () => {
     runs.summary(runId).then((r) => setSummary(r.data)).catch((e) => toast.error(formatApiError(e)));
+  };
+
+  useEffect(() => {
+    loadSummary();
     runs.evaluation(runId).then((r) => setEvaluation(r.data)).catch(() => setEvaluation(false));
   }, [runId]);
+
+  const generateAiSummary = async () => {
+    setAiBusy(true);
+    try {
+      await runs.generateAiSummary(runId);
+      toast.success("AI run summary generated");
+      loadSummary();
+    } catch (e) {
+      toast.error(formatApiError(e));
+    } finally {
+      setAiBusy(false);
+    }
+  };
 
   if (!summary) return <div className="space-y-4"><Skeleton className="h-24" /><Skeleton className="h-64" /></div>;
   const m = summary.summary_metrics;
@@ -123,6 +143,89 @@ export default function RunSummary() {
           </Section>
         </div>
       </div>
+
+      <Section title="AI run insights (evidence-grounded)" testId="ai-summary-section">
+        <div className={`p-5 rounded-b-lg ${summary.ai_summary && !summary.ai_summary._fallback ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-t border-blue-200' : 'bg-slate-50 border-t border-slate-200'}`}>
+          {!summary.ai_summary ? (
+            <div className="flex flex-col items-center justify-center py-6 text-center space-y-3">
+              <Sparkle size={32} className="text-slate-400" />
+              <p className="text-sm text-slate-500 max-w-md">
+                Generate an LLM-powered executive summary of this run's health, key findings, root causes, and actionable recommendations.
+              </p>
+              <button className="btn-primary" onClick={generateAiSummary} disabled={aiBusy}>
+                {aiBusy ? "Analyzing run..." : "Generate AI Insights"}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wide text-blue-800 flex items-center gap-1">
+                  <Sparkle size={14} weight="fill" /> {summary.ai_summary._fallback ? 'Deterministic Fallback' : '🤖 LLM Analysis'}
+                </span>
+                <div className="flex gap-2 items-center text-xs text-slate-500">
+                  {summary.ai_summary._model && <span>model: {summary.ai_summary._model}</span>}
+                  <button className="text-blue-600 hover:underline disabled:opacity-50" onClick={generateAiSummary} disabled={aiBusy}>
+                    {aiBusy ? "Regenerating..." : "Regenerate"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-sm text-slate-800">
+                <div>
+                  <h4 className="font-semibold text-slate-900 mb-1">Overall Assessment</h4>
+                  <p className="leading-relaxed bg-white/70 p-3 rounded border border-blue-100">{summary.ai_summary.overall_assessment}</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Key Findings</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {summary.ai_summary.key_findings?.map((f, i) => <li key={i}>{f}</li>)}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Recommendations</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {summary.ai_summary.recommendations?.map((r, i) => <li key={i}>{r}</li>)}
+                    </ul>
+                  </div>
+                </div>
+
+                {summary.ai_summary.common_root_causes?.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Common Root Causes</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                      {summary.ai_summary.common_root_causes.map((c, i) => (
+                        <div key={i} className="bg-white/70 border border-amber-100 p-3 rounded-md shadow-sm">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="font-medium text-amber-900 capitalize text-xs">{c.cause}</span>
+                            <Badge tone="amber" className="!text-[10px]">{c.count}</Badge>
+                          </div>
+                          <p className="text-xs text-slate-600 mt-1">{c.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex items-center gap-4 text-xs pt-2 border-t border-blue-100/50">
+                  {summary.ai_summary.risk_analysis && (
+                    <span className="flex items-center gap-1 text-rose-700">
+                      <strong>Risk:</strong> {summary.ai_summary.risk_analysis}
+                    </span>
+                  )}
+                  {summary.ai_summary.data_quality_notes && (
+                    <span className="flex items-center gap-1 text-amber-700">
+                      <strong>Data Quality:</strong> {summary.ai_summary.data_quality_notes}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </Section>
 
       <Section title="Baseline comparison — same dataset, three matcher configurations (independent ground truth)"
         testId="baseline-section">

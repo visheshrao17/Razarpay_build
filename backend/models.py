@@ -36,6 +36,7 @@ class Run(Base):
     config: Mapped[dict] = mapped_column(JSON, default=dict)
     source_checksums: Mapped[dict] = mapped_column(JSON, default=dict)
     summary_metrics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    ai_summary: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     used_fixture: Mapped[bool] = mapped_column(Boolean, default=False)

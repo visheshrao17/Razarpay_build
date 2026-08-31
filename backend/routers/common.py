@@ -90,7 +90,8 @@ def run_out(r, sources=None):
     return {"run_id": r.run_id, "name": r.name, "currency": r.currency, "status": r.status,
             "rules_version": r.rules_version, "assumptions_version": r.assumptions_version,
             "config": r.config, "source_checksums": r.source_checksums,
-            "summary_metrics": r.summary_metrics, "used_fixture": r.used_fixture,
+            "summary_metrics": r.summary_metrics, "ai_summary": r.ai_summary,
+            "used_fixture": r.used_fixture,
             "created_at": r.created_at.isoformat() if r.created_at else None,
             "completed_at": r.completed_at.isoformat() if r.completed_at else None,
             "sources": sources or []}

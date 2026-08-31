@@ -30,6 +30,7 @@ def build_report(run, sources, matches, exceptions, reviewer_events, audit_range
                                              "rows": s.row_count, "valid": s.valid_rows,
                                              "invalid": s.invalid_rows} for s in sources},
         "metrics": metrics,
+        "ai_summary": run.ai_summary,
         "matched_records": [{
             "match_id": m.match_id, "plane": m.plane, "match_type": m.match_type,
             "decision": m.decision, "confidence": m.confidence,
@@ -69,6 +70,39 @@ def render_markdown(report):
         "",
         f"> {report['disclosure']}",
         "",
+    ]
+    
+    if report.get("ai_summary"):
+        ai = report["ai_summary"]
+        lines += [
+            "## AI Run Insights (LLM Analysis)",
+            "",
+            f"**Overall Assessment**: {ai.get('overall_assessment')}",
+            ""
+        ]
+        if ai.get("key_findings"):
+            lines.append("**Key Findings**:")
+            for f in ai["key_findings"]:
+                lines.append(f"- {f}")
+            lines.append("")
+            
+        if ai.get("recommendations"):
+            lines.append("**Recommendations**:")
+            for r in ai["recommendations"]:
+                lines.append(f"- {r}")
+            lines.append("")
+            
+        if ai.get("common_root_causes"):
+            lines.append("**Common Root Causes**:")
+            for c in ai["common_root_causes"]:
+                lines.append(f"- {c['cause']}: {c['count']} ({c['description']})")
+            lines.append("")
+            
+        if ai.get("risk_analysis"):
+            lines.append(f"**Risk Analysis**: {ai.get('risk_analysis')}")
+            lines.append("")
+
+    lines += [
         "## Metrics",
         "",
         "| Metric | Value |",

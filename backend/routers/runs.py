@@ -349,11 +349,54 @@ async def run_summary(run_id: str, db: AsyncSession = Depends(get_db),
                                 .where(MatchDecision.run_id == run_id)
                                 .group_by(MatchDecision.decision))).all()
     return {"run_id": run_id, "status": run.status, "summary_metrics": run.summary_metrics,
-            "config": run.config,
+            "ai_summary": run.ai_summary, "config": run.config,
             "exception_status_counts": status_counts, "exception_severity_counts": sev_counts,
             "exception_code_counts": code_counts,
             "open_exception_amount_minor": open_amount,
             "match_decision_counts": {d: c for d, c in matches}}
+
+
+@router.post("/{run_id}/ai-summary")
+async def generate_run_ai_summary(run_id: str, db: AsyncSession = Depends(get_db),
+                                  user=Depends(get_current_user)):
+    run = await _get_run(db, run_id)
+    if not run.summary_metrics:
+        raise HTTPException(status_code=400, detail="Run must be executed first")
+    
+    # Check if we already have it
+    if run.ai_summary and not run.ai_summary.get("_fallback"):
+        return {"run_id": run_id, "ai_summary": run.ai_summary}
+
+    exceptions = (await db.execute(select(ExceptionRecord).where(
+        ExceptionRecord.run_id == run_id))).scalars().all()
+    
+    exception_summary = {
+        "status_counts": {}, "severity_counts": {}, "code_counts": {}
+    }
+    sample_exceptions = []
+    
+    for e in exceptions:
+        exception_summary["status_counts"][e.status] = exception_summary["status_counts"].get(e.status, 0) + 1
+        exception_summary["severity_counts"][e.severity] = exception_summary["severity_counts"].get(e.severity, 0) + 1
+        exception_summary["code_counts"][e.exception_code] = exception_summary["code_counts"].get(e.exception_code, 0) + 1
+        
+        if len(sample_exceptions) < 20 and e.status in ("OPEN", "IN_REVIEW", "UNRESOLVED"):
+            sample_exceptions.append({
+                "exception_code": e.exception_code,
+                "severity": e.severity,
+                "amount_at_risk_minor": e.amount_at_risk_minor,
+                "explanation": e.explanation
+            })
+
+    from services.ai_summary import generate_run_summary
+    summary_result, model_version = await generate_run_summary(
+        run.summary_metrics, exception_summary, sample_exceptions
+    )
+    
+    run.ai_summary = summary_result
+    await db.commit()
+    
+    return {"run_id": run_id, "ai_summary": summary_result}
 
 
 @router.get("/{run_id}/matches")

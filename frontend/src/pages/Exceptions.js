@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { runs, exceptions as excApi, formatApiError } from "../api/client";
 import { Badge, severityTone, statusTone, ConfidenceBar, Money, Mono, Section, Skeleton, EmptyState, Modal } from "../components/ui";
-import { Sparkle } from "@phosphor-icons/react";
+import { Sparkle, Lightning } from "@phosphor-icons/react";
 
 const CODES = ["", "MISSING_BANK_ENTRY", "MISSING_ORDER", "AMOUNT_MISMATCH", "FEE_VARIANCE",
   "TAX_VARIANCE", "DUPLICATE", "TIMING_DIFFERENCE", "PARTIAL_REFUND", "DISPUTE_ADJUSTMENT",
@@ -11,18 +11,33 @@ const CODES = ["", "MISSING_BANK_ENTRY", "MISSING_ORDER", "AMOUNT_MISMATCH", "FE
 const STATUSES = ["", "OPEN", "IN_REVIEW", "RESOLVED", "REJECTED", "UNRESOLVED"];
 const SEVERITIES = ["", "critical", "high", "medium", "low"];
 const ACTIONS = ["approve_match", "reject_match", "split_match", "request_data", "leave_unresolved"];
-const AI_MODELS = ["gpt-5.4", "claude-sonnet-4-6", "gemini-3.1-pro-preview"];
+const AI_MODELS = ["openrouter", "gpt-5.4", "claude-sonnet-4-6", "gemini-3.1-pro-preview"];
 
 function ExceptionDetail({ exceptionId, onClose, onChanged }) {
   const [detail, setDetail] = useState(null);
   const [action, setAction] = useState("approve_match");
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState("");
-  const [aiModel, setAiModel] = useState("gpt-5.4");
+  const [aiModel, setAiModel] = useState("openrouter");
   const { runId } = useParams();
 
+  const autoExplainTriggered = useRef(false);
   const load = useCallback(() => {
-    excApi.detail(exceptionId).then((r) => setDetail(r.data)).catch((e) => toast.error(formatApiError(e)));
+    excApi.detail(exceptionId).then((r) => {
+      setDetail(r.data);
+      // Auto-trigger AI explanation if not yet generated
+      if (!autoExplainTriggered.current && !r.data.exception.ai_explanation) {
+        autoExplainTriggered.current = true;
+        setBusy("explain");
+        excApi.explain(exceptionId, "openrouter")
+          .then(() => {
+            excApi.detail(exceptionId).then((r2) => setDetail(r2.data));
+            toast.success("AI explanation auto-generated");
+          })
+          .catch((e) => toast.error("AI explain failed: " + formatApiError(e)))
+          .finally(() => setBusy(""));
+      }
+    }).catch((e) => toast.error(formatApiError(e)));
   }, [exceptionId]);
   useEffect(() => { load(); }, [load]);
 
@@ -89,10 +104,10 @@ function ExceptionDetail({ exceptionId, onClose, onChanged }) {
         </div>
       )}
 
-      <div className="bg-blue-50 border border-blue-100 rounded-lg p-4" data-testid="ai-explanation-panel">
+      <div className={`border rounded-lg p-4 ${ai && !ai._fallback ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200' : 'bg-blue-50 border-blue-100'}`} data-testid="ai-explanation-panel">
         <div className="flex items-center justify-between gap-2 mb-2">
           <span className="text-xs font-semibold uppercase tracking-wide text-blue-800 flex items-center gap-1">
-            <Sparkle size={14} weight="fill" /> AI explanation (evidence-grounded)
+            <Sparkle size={14} weight="fill" /> {ai && !ai._fallback ? '🤖 LLM Analysis' : 'AI explanation (evidence-grounded)'}
           </span>
           <div className="flex items-center gap-2">
             <select className="input !w-52 !py-1 text-xs" value={aiModel} onChange={(ev) => setAiModel(ev.target.value)}
@@ -106,27 +121,49 @@ function ExceptionDetail({ exceptionId, onClose, onChanged }) {
           </div>
         </div>
         {ai ? (
-          <div className="space-y-2 text-sm">
-            <p className="text-slate-800" data-testid="ai-summary">{ai.summary}</p>
+          <div className="space-y-3 text-sm">
+            <div className={`p-3 rounded-md ${ai._fallback ? 'bg-slate-100' : 'bg-white/70 border border-blue-100'}`}>
+              <p className="text-slate-800 leading-relaxed" data-testid="ai-summary">{ai.summary}</p>
+            </div>
             <div className="flex items-center gap-3 flex-wrap text-xs">
               {ai.abstain && <Badge tone="amber" testId="ai-abstain-badge">ABSTAINED</Badge>}
-              {ai._fallback && <Badge tone="slate" testId="ai-fallback-badge">deterministic fallback</Badge>}
-              <span className="text-slate-500">confidence <span className="mono-num">{Number(ai.confidence).toFixed(2)}</span></span>
-              <span className="text-slate-500">action: {ai.recommended_action}</span>
-              {ai._model && <span className="text-slate-500">model: {ai._model}</span>}
+              {ai._fallback ? (
+                <Badge tone="slate" testId="ai-fallback-badge">⚠ deterministic fallback (no LLM)</Badge>
+              ) : (
+                <Badge tone="emerald" testId="ai-llm-badge">✓ LLM-generated</Badge>
+              )}
+              <span className="text-slate-500">confidence <span className="mono-num font-bold">{Number(ai.confidence).toFixed(2)}</span></span>
+              <span className="text-slate-500">action: <strong>{ai.recommended_action}</strong></span>
+              {ai._model && <span className="text-blue-600 font-medium">model: {ai._model}</span>}
+              {ai._prompt_version && <span className="text-slate-400">prompt: {ai._prompt_version}</span>}
             </div>
             {ai.possible_causes?.length > 0 && (
-              <div className="text-xs text-slate-600">Possible causes: {ai.possible_causes.join(", ")}</div>
+              <div className="text-xs text-slate-600">
+                <span className="font-semibold">Possible causes:</span> {ai.possible_causes.map((c, i) => (
+                  <span key={c} className="inline-block bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5 mr-1 mt-1">{c.replace(/_/g, ' ')}</span>
+                ))}
+              </div>
+            )}
+            {ai.evidence_fields?.length > 0 && (
+              <div className="text-xs text-slate-600">
+                <span className="font-semibold">Evidence fields:</span> {ai.evidence_fields.join(", ")}
+              </div>
             )}
             <div className="text-xs text-slate-500">
-              Cited evidence: {(ai.evidence_ids || []).map((r) => <Mono key={r} className="mr-2 text-blue-700">{r}</Mono>)}
+              <span className="font-semibold">Cited records:</span> {(ai.evidence_ids || []).map((r) => <Mono key={r} className="mr-2 text-blue-700">{r}</Mono>)}
             </div>
+            {ai.unsupported_claims?.length > 0 && (
+              <div className="text-xs text-red-600">
+                <span className="font-semibold">⚠ Unsupported claims:</span> {ai.unsupported_claims.join(", ")}
+              </div>
+            )}
           </div>
         ) : (
-          <p className="text-xs text-slate-500">
-            No AI explanation yet. The deterministic explanation above always stands on its own; AI adds a
-            plain-language summary with cited source records and abstains when evidence is insufficient.
-          </p>
+          <div className="flex items-center gap-3">
+            <div className="animate-pulse flex items-center gap-2 text-xs text-blue-600">
+              <Sparkle size={14} className="animate-spin" /> Auto-generating AI explanation…
+            </div>
+          </div>
         )}
       </div>
 

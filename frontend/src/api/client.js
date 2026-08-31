@@ -34,6 +34,7 @@ export const runs = {
   },
   execute: (runId, force = false) => api.post(`/runs/${runId}/execute?force=${force}`),
   summary: (runId) => api.get(`/runs/${runId}/summary`),
+  generateAiSummary: (runId) => api.post(`/runs/${runId}/ai-summary`),
   matches: (runId, params) => api.get(`/runs/${runId}/matches`, { params }),
   matchDetail: (runId, matchId) => api.get(`/runs/${runId}/matches/${matchId}`),
   exceptions: (runId, params) => api.get(`/runs/${runId}/exceptions`, { params }),
